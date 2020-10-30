@@ -44,13 +44,13 @@
     <div id="container">
         <div id="options">
           <h3 onclick="drawGraph(0, 2, this)" class="r active">Julia Brncic (R)</h3>
-          <h3 onclick="drawGraph(7, 1, this)" class="d">Maurice Graham (D)</h3>
-          <h3 onclick="drawGraph(1, 2, this)" class="r">Greg Hoberock (R)</h3>
+          <h3 onclick="drawGraph(1, 1, this)" class="d">Maurice Graham (D)</h3>
+          <h3 onclick="drawGraph(2, 2, this)" class="r">Greg Hoberock (R)</h3>
           <h3 onclick="drawGraph(3, 0, this)" class="i">Robin Wenneker (I)</h3>
-          <h3 onclick="drawGraph(8, 1, this)" class="d">Michael Williams (D)</h3>
-          <h3 onclick="drawGraph(6, 1, this)" class="d">Phillip Snowden (D)</h3>
-          <h3 onclick="drawGraph(2, 2, this)" class="r">Jeff Layman (R)</h3>
-          <h3 onclick="drawGraph(4, 2, this)" class="r">David Steelman (R)</h3>
+          <h3 onclick="drawGraph(4, 1, this)" class="d">Michael Williams (D)</h3>
+          <h3 onclick="drawGraph(5, 1, this)" class="d">Phillip Snowden (D)</h3>
+          <h3 onclick="drawGraph(6, 2, this)" class="r">Jeff Layman (R)</h3>
+          <h3 onclick="drawGraph(7, 2, this)" class="r">David Steelman (R)</h3>
           <h3 id="unk">Darryl Chatman (D)</h3>
         </div>
         <div id="svgContainer"></div>
@@ -114,7 +114,7 @@
           }
 
           bubble_data = combineRows(data)[index];
-          // console.log(bubble_data)
+          console.log(bubble_data)
 
           function createNodes(bubble_data) {
             const maxSize = d3.max(bubble_data, d => d.amount);
@@ -145,7 +145,7 @@
             return Math.pow(d.radius, 2.0) * 0.01
           }
           
-          const forceStrength = 0.01*Math.sqrt(nodes.length);
+          const forceStrength = 0.01*Math.pow(nodes.length, 1/2);
           const rFactor = 1.5;
 
           const simulation = d3.forceSimulation()
@@ -157,23 +157,17 @@
 
           simulation.stop();
           
-          var colorScale = d3.scaleLinear()
+          var colorScale1 = d3.scaleLinear()
                 .domain(d3.extent(nodes, d => d.radius))
                 .range(["#EDEDED", "#808080"])
           
-          switch(party) {
-            case 1:
-              colorScale = d3.scaleLinear()
+          var colorScale2 = d3.scaleLinear()
                 .domain(d3.extent(nodes, d => d.radius))
                 .range(["#80D8FF", "#01579B"])
-              break;
-            case 2:
-              colorScale = d3.scaleLinear()
+
+          var colorScale3 = d3.scaleLinear()
                 .domain(d3.extent(nodes, d => d.radius))
                 .range(["#FF6961", "#FF0D00"])
-              break;
-            default: break;
-          }
           
           var showTooltip = function(event, d) {
             tooltip
@@ -210,7 +204,19 @@
             .append('circle')
             .classed('bubble', true)
             .attr('r', d => d.radius*rFactor)
-            .attr('fill', d => colorScale(d.radius))
+            .attr('fill', function(d) {
+              switch(d.party) {
+                case "d":
+                  return colorScale2(d.radius);
+                  break;
+                case "r":
+                  return colorScale3(d.radius);
+                  break;
+                default:
+                  return colorScale1(d.radius);
+                  break;
+              }
+            })
             .on("mouseover", function(d) {
               d3.select(this).style("stroke", "black")
             })
