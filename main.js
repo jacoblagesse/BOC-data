@@ -9,7 +9,7 @@ function drawGraph(index, elem) {
   });
 
   d3.json("data.json").then(function(data){
-    drawLine(data[index]);
+    drawBars(data[index]);
   });
 }
 

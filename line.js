@@ -31,7 +31,7 @@ function drawLine(data) {
 
       // console.log(item.date + ' ' + item.amount)
       item.parsedDate.setDate(1)
-      var existing = output.filter(d => d.parsedDate.getMonth() === item.parsedDate.getMonth() && d.parsedDate.getYear() === item.parsedDate.getYear());
+      var existing = output.filter(d => d.parsedDate.getYear() === item.parsedDate.getYear());
       if (existing.length) {
         var existingIndex = output.indexOf(existing[0]);
         output[existingIndex].amount += +item.amount;
