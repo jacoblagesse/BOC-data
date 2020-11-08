@@ -1,5 +1,5 @@
 function drawGraph(index, elem) {
-  $('.active').removeClass('active');
+  $('#options2 > .active').removeClass('active');
   $(elem).addClass('active');
 
   d3.selectAll("g > *, path").remove()
@@ -13,4 +13,18 @@ function drawGraph(index, elem) {
   });
 }
 
-drawGraph(0, $('.r')[0]);
+function switchGraph(newGraph, elem) {
+
+  $('.active2').removeClass('active2');
+  $(elem).addClass('active2');
+  
+  if (newGraph) {
+    $('.bubbles').css('display', 'none');
+    $('.bar').css('display', 'block');
+  } else {
+    $('.bar').css('display', 'none');
+    $('.bubbles').css('display', 'block');
+  }
+}
+
+drawGraph(0, $('#options2 > .r')[0]);

@@ -5,33 +5,68 @@
       * {
         font-family: sans-serif;
       }
+      h1 {
+        margin-left: 10px;
+      }
       #options {
-        width: 250px;
+        width: 200px;
+        padding: 10px;
+      }
+      #options p {
+        text-align: center;
+      }
+      #options1, #options2 {
+        padding: 10px; 
+        background-color: #EDEDED;
+        margin-bottom: 25px;
       }
       #container {
+        width: 1000px;
         display: flex;
+        flex-wrap: wrap;
       }
-      h3 {
+      #svg-container {
+        position: absolute;
+      }
+      .bubbles {
+        position: absolute;
+      }
+      .bar {
+        position: absolute;
+        display: none;
+      }
+      button {
         cursor: pointer;
-        margin-top: 35px;
-        
+        border-width: 0px;
+        /* border-radius: 15px; */
+        border-color: black;
+        width: 150px;
+        margin: 8px;
+        height: 25px; 
         padding: 5px;
       }
+      button:focus {
+        outline: 0;
+        }
       #unk {
         cursor: auto;
         color: grey;
       }
       .active.d {
-        border-left: 3px solid #01579B;
+        /* border-right: 3px solid #01579B; */
         background-color: #80D8FF;
       }
       .active.r {
-        border-left: 3px solid #FF0D00;
+        /* border-right: 3px solid #FF0D00; */
         background-color: #FF6961;
       }
       .active.i {
-        border-left: 3px solid #808080;
-        background-color: #EDEDED;
+        /* border-right: 3px solid black; */
+        background-color: #808080;
+      }
+      .active2.i {
+        /* border-right: 3px solid black; */
+        background-color: #808080;
       }
       h1 {
         position: relative;
@@ -39,21 +74,28 @@
     </style>
   </head>
   <body>
-    <h1>Total contributions</h1>
-    <p>Click on a name to see that member's total contributions to different political organizations</p>
+    <h1>Politicization of MU's Board of Curators</h1>
     <div id="container">
-        <div id="options">
-          <h3 onclick="drawGraph(0, this)" class="r active">Julia Brncic (R)</h3>
-          <h3 onclick="drawGraph(1, this)" class="d">Maurice Graham (D)</h3>
-          <h3 onclick="drawGraph(2, this)" class="r">Greg Hoberock (R)</h3>
-          <h3 onclick="drawGraph(3, this)" class="i">Robin Wenneker (I)</h3>
-          <h3 onclick="drawGraph(4, this)" class="d">Michael Williams (D)</h3>
-          <h3 onclick="drawGraph(5, this)" class="d">Phillip Snowden (D)</h3>
-          <h3 onclick="drawGraph(6, this)" class="r">Jeff Layman (R)</h3>
-          <h3 onclick="drawGraph(7, this)" class="r">David Steelman (R)</h3>
-          <h3 id="unk">Darryl Chatman (D)</h3>
+      <div id="options">
+        <div id="options1">
+          <p>Filter contributions by:<p>
+          <button onclick="switchGraph(0, this)" class="i active2">Organization</button>
+          <button onclick="switchGraph(1, this)" class="i">Year</button>
         </div>
-        <div id="svgContainer"></div>
+        <div id="options2">
+          <p>Filter contributions by member:</p>
+          <button onclick="drawGraph(0, this)" class="r active">Julia Brncic (R)</button>
+          <button onclick="drawGraph(1, this)" class="d">Maurice Graham (D)</button>
+          <button onclick="drawGraph(2, this)" class="r">Greg Hoberock (R)</button>
+          <button onclick="drawGraph(3, this)" class="i">Robin Wenneker (I)</button>
+          <button onclick="drawGraph(4, this)" class="d">Michael Williams (D)</button>
+          <button onclick="drawGraph(5, this)" class="d">Phillip Snowden (D)</button>
+          <button onclick="drawGraph(6, this)" class="r">Jeff Layman (R)</button>
+          <button onclick="drawGraph(7, this)" class="r">David Steelman (R)</button>
+          <button id="unk">Darryl Chatman (D)</button>
+        </div>
+      </div>
+      <div id="svgContainer"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>

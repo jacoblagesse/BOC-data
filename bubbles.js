@@ -3,6 +3,7 @@ const height = 750;
 
 const svg = d3.select("#svgContainer").append("svg")
   // .attr("viewBox", [0, 0, width, height])
+  .attr('class', 'bubbles')
   .attr('width', width)
   .attr('height', height)
 

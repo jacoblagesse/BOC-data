@@ -1,8 +1,9 @@
 const barWidth = 750;
-const barHeight = 750;
-const margin = ({top: 20, right: 20, bottom: 20, left: 100});
+const barHeight = 650;
+const margin = ({top: 20, right: 75, bottom: 20, left: 75});
 
 const svg3 = d3.select("#svgContainer").append("svg")
+  .attr('class', 'bar')
   .attr('width', barWidth)
   .attr('height', barHeight)
 
@@ -35,10 +36,6 @@ function drawBars(raw_data) {
         .attr("fill", "currentColor")
         .attr("text-anchor", "start"));
         //.text(data.y))
-
-  var colorScale1 = d3.scaleLinear()
-        .domain([0, d3.min(data, d => d.partyAmount)])
-        .range(["#EDEDED", "#808080"])
   
   var colorScale2 = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.partyAmount)])
