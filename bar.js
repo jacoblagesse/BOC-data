@@ -24,8 +24,9 @@ function drawBars(raw_data) {
 
   const xAxis = g => g
     .attr("transform", `translate(0,${barHeight - margin.bottom})`)
-    .call(d3.axisBottom(x).tickFormat((d,i) => {
-      return i%2 !== 0 ? " ": data[i].date;
+    .call(d3.axisBottom(x).tickFormat(function(d,i) {
+      if (data.length > 20) return i%2 !== 0 ? " ": data[i].date;
+      else return data[i].date;
      }).tickSizeOuter(0))
 
   const yAxis = g => g
