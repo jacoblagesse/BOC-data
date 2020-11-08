@@ -9,7 +9,7 @@ const svg3 = d3.select("#svgContainer").append("svg")
 
 function drawBars(raw_data) {
 
-  data = groupYears(raw_data).reverse()
+  data = groupYears(raw_data)
 
   console.log(data);
   
@@ -24,7 +24,9 @@ function drawBars(raw_data) {
 
   const xAxis = g => g
     .attr("transform", `translate(0,${barHeight - margin.bottom})`)
-    .call(d3.axisBottom(x).tickFormat(i => data[i].date).tickSizeOuter(0))
+    .call(d3.axisBottom(x).tickFormat((d,i) => {
+      return i%2 !== 0 ? " ": data[i].date;
+     }).tickSizeOuter(0))
 
   const yAxis = g => g
     .attr("transform", `translate(${margin.left},0)`)
@@ -106,5 +108,20 @@ function groupYears(data) {
         output.push(item);
     }
   });
+  output = output.reverse();
+  fillEmpty(output);
   return output
+}
+
+function fillEmpty(data) {
+  data.forEach(function(d, i) {
+    if (data[i+1] && data[i+1].date - d.date > 1) {
+      item = {
+        amount: 0,
+        date: d.date + 1,
+        partyAmount: 0
+      }
+      data.splice(i+1, 0, item);
+    }
+  });
 }
